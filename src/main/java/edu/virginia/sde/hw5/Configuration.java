@@ -50,6 +50,7 @@ public class Configuration {
         try (InputStream inputStream = Objects.requireNonNull(Configuration.class.getResourceAsStream(configurationFilename));
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
             //TODO: Parse config.json to set the three fields
+            //COMPLETE
             JSONTokener jsonTokener = new JSONTokener(bufferedReader);
             JSONObject jsonObject = new JSONObject(jsonTokener);
             JSONObject endPoint = jsonObject.getJSONObject("endpoints");
