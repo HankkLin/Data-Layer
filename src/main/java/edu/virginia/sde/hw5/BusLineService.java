@@ -71,8 +71,26 @@ public class BusLineService {
      * @return the closest Stop
      */
     public Stop getClosestStop(double latitude, double longitude) {
+        List<Stop> stops = null;
         //TODO: implement
-        return null;
+        try {
+            databaseDriver.connect();
+            stops = databaseDriver.getAllStops();
+            databaseDriver.disconnect();
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        Stop closestStop = null;
+        double shortestDistance = stops.get(0).distanceTo(latitude, longitude);
+        for (Stop stop: stops){
+            double currentDistance = stop.distanceTo(latitude, longitude);
+            if(currentDistance<=shortestDistance){
+                shortestDistance = currentDistance;
+                closestStop = stop;
+            }
+        }
+        return closestStop;
     }
 
     /**
@@ -83,6 +101,54 @@ public class BusLineService {
      */
     public Optional<BusLine> getRecommendedBusLine(Stop source, Stop destination) {
         //TODO: implement
-        return Optional.empty();
+        List<BusLine> busLines = null;
+        try{
+            busLines = databaseDriver.getBusLines();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        double shortestDistance = 100000.0;
+        BusLine returnBusLine = null;
+        for(BusLine busLine: busLines){
+            Route route = busLine.getRoute();
+            double currentDistance = 0.0;
+            if (route.contains(source) && route.contains(destination)){
+                currentDistance = countDistance(route, source, destination);
+                if (currentDistance<shortestDistance){
+                    returnBusLine = busLine;
+                    shortestDistance = currentDistance;
+                }
+            }
+        }
+        if(returnBusLine==null){
+            return Optional.empty();
+        }
+        return Optional.of(returnBusLine);
+    }
+    public double countDistance(Route route, Stop source, Stop destination){
+        boolean finishCount = false;
+        boolean count = false;
+        int counter = 0;
+        double distance = 0.0;
+        while(!finishCount){
+            Stop stop = route.getStops().get(counter);
+            Stop nextStop = null;
+            if(counter == route.getStops().size()-1){
+                counter = -1;
+            }
+            nextStop = route.getStops().get(counter+1);
+            if(stop.equals(source)){
+                count = true;
+            }
+            if(count){
+                distance += stop.distanceTo(nextStop);
+                //System.out.println(String.valueOf(counter)+" "+String.valueOf(stop.distanceTo(nextStop)));
+            }
+            counter += 1;
+            if(count && nextStop.equals(destination)){
+                finishCount = true;
+            }
+        }
+        return distance;
     }
 }
