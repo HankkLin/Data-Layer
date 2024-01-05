@@ -25,8 +25,8 @@ git clone https://classroom.github.com/a/bfuRBPGn
 - Use methods in `BusLineService` to find the closest stop to a given location or to get a recommended bus line for traveling between two stops.
 
 ## Contributing
-This is a project for course CS3140 in University of Virginia. 
-Generated from [here](https://github.com/cs-3140-fa23/hw5-starter-repo)
+This is a project for course CS3140 in University of Virginia.\
+Generated from [here](https://github.com/cs-3140-fa23/hw5-starter-repo).\
 All contributions are welcome!
 
 ## License
