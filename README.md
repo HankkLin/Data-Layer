@@ -1,19 +1,32 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/bfuRBPGn)
-# Homework 5 - Data Layer
+# UVA Bus Routes Database Interface
 
-## Authors
-1) Han Lin, ezp9xp, HankkLin
+## Introduction
+This project builds and queries a database of UVA Bus Routes using data harvested from the UVA Devhub API. The application translates JSON bus information into a list of objects, stores this list in a SQLite database for persistence, and allows for sophisticated querying of the content. This is not a homework assignment but a comprehensive tool designed for real-world application.
 
+## Getting Started
+1. **Clone the Repository:**
+```Bash
+git clone https://classroom.github.com/a/bfuRBPGn
+```
+## Features
+- **StopReader and BusLineReader:** Return lists of Stops and BusLines (including their Routes) from the API.
+- **DatabaseDriver:** Interface for writing to and reading from the database, creating tables, inserting data, and querying information.
+- **BusLineService:** Provides methods to find the closest bus stop and recommend the best bus line for given source and destination stops.
 
-## Contributions
+## How to Use
+1. **Setting Up the Database:**
+- Run `DatabaseDriver` to initialize your database and tables.
+- Use `addStops` and `addBusLines` methods to populate the database.
 
-List the primary contributions of each author. It is recommended to update this with your contributions after each coding session.:
+2. **Querying the Database:**
+- Utilize the `getBusLines`, `getStops`, and other querying methods provided by `DatabaseDriver` to retrieve information.
 
-### [Han Lin]
+3. **Finding Closest Stops and Recommended BusLines:**
+- Use methods in `BusLineService` to find the closest stop to a given location or to get a recommended bus line for traveling between two stops.
 
-* All by me
+## Contributing
+We welcome contributions! Please read our contributing guidelines before submitting pull requests.
 
+## License
+[MIT License](LICENSE.md) - feel free to use and modify this project as you see fit.
 
-## Issues
-
-List any known issues (bugs, incorrect behavior, etc.) at the time of submission.
